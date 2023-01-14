@@ -32,7 +32,7 @@ public class FeatureFlagController : ControllerBase
 	[HttpGet()]
 	public FeatureFlag FilterByAge(string id)
 	{        
-		return _featureFlags.Where(x => x.Id == id).FirstOrDefault();
+		return _featureFlags.FirstOrDefault(x => x.Id == id);
 	}
 
 
