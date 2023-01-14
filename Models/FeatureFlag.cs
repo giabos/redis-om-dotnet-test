@@ -3,7 +3,7 @@
 
 using Redis.OM.Modeling;
 
-namespace Redis.OM.Skeleton;
+namespace Adesa.FeatureFlags.Models;
 
 [Document(StorageType = StorageType.Hash, Prefixes = new []{"FeatureFlag"})]
 public class FeatureFlag

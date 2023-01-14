@@ -3,9 +3,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Redis.OM;
 using Redis.OM.Searching;
-using Redis.OM.Skeleton;
+using Adesa.FeatureFlags.Models;
 
-namespace Redis.OM.Skeleton.Controllers;
+
+namespace Adesa.FeatureFlags.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -28,7 +29,7 @@ public class FeatureFlagsController : ControllerBase
 		return ff;
 	}
 
-	[HttpPut()]
+	[HttpPut("{id:alpha}")]
 	public async Task<FeatureFlag> Update(string id, [FromQuery]bool flag)
 	{        
 		var ff =  await _featureFlags.FindByIdAsync(id);
@@ -38,11 +39,12 @@ public class FeatureFlagsController : ControllerBase
 		return ff;
 	}
 
-	[HttpGet()]
-	public async Task<FeatureFlag> GetById(string id)
+	[HttpGet("{id:alpha}")]
+	public async Task<IActionResult> GetById(string id)
 	{        
 		//return _featureFlags.FirstOrDefault(x => x.Id == id);
-		return await _featureFlags.FindByIdAsync(id);
+		var ff = await _featureFlags.FindByIdAsync(id);
+		return ff != null ? Ok(ff) : NotFound();
 	}
 
 }
